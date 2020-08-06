@@ -38,4 +38,7 @@ textarea {
   :root {
     font-size: 62.5%;
   }
+  #root div {
+    width: 100%;
+  }
 }
