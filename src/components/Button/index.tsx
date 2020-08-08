@@ -5,8 +5,7 @@ import React from 'react';
 interface ButtonProps  {
   name: string,
   label: string,
-  color?: string
-
+  color: string
 }
 
 

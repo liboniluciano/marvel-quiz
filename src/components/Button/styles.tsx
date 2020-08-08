@@ -1,14 +1,14 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { darken }  from 'polished';
 
 interface ButtonProps  {
-  color?: string
+  color: string
 }
 
 export const Button = styled.button<ButtonProps>`
+  color: #FFF;
   width: 20rem;
   height: 5.6rem;
-  background: ${props => props.color};
-  color: black;
   border: 0;
   border-radius: 0.8rem;
   font: 700 3.0rem Marvel;
@@ -17,9 +17,15 @@ export const Button = styled.button<ButtonProps>`
   transition: 0.2s;
   outline: 0;
 
-  &:hover {
-    background-color: #876464 ;
-  }
+
+  ${props => css`
+    background-color: ${props.color};
+
+    &:hover {
+      background-color: ${darken(0.2, props.color)}
+    }
+  `}
+
 
   @media(min-width: 1100px){ 
     margin-bottom: 1rem;

@@ -6,9 +6,9 @@ import Header from '../../components/Header';
 import { HomeContainer, ButtonContainer } from './styles';
 
 const colors = {
-  easy: '#33FF39',
-  medium: '#EEF504',
-  hard: '#EE1626'
+  easy: '#1f4068',
+  medium: '#1b1b2f',
+  hard: '#e43f5a'
 }
 
 const Home: React.FC = () => {
