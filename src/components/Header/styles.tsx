@@ -3,8 +3,7 @@ import logo from '../../assets/images/logo.svg';
 
 export const MenuContent = styled.div`
   height: 4.4rem;
-  max-width: 100vw;
-  margin: 0 auto;
+  width: 100vw;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -12,7 +11,6 @@ export const MenuContent = styled.div`
   background: #202020;
 
   @media(min-width: 700px){
-    
   }
 
 `;
@@ -25,6 +23,7 @@ width: 10rem;
 
 export const ItemMenu = styled.a`
   margin-right: 1.5rem;
+  max-width: 100vw;
   display: flex;
   align-items: center;
   height: 3.2rem;

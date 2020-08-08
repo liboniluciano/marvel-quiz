@@ -17,6 +17,12 @@ export const Button = styled.button<ButtonProps>`
   transition: 0.2s;
   outline: 0;
 
+    @media(min-width: 1100px){ 
+    margin-bottom: 1rem;
+    width: 20rem;
+    height: 10rem;
+}
+
 
   ${props => css`
     background-color: ${props.color};

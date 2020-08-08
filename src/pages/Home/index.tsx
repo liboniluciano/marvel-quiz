@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 
-import { HomeContainer, ButtonContainer } from './styles';
+import { HomeContainer, ButtonContainer, TitleContainer, DescriptionTitle, DescriptionContainer, DescriptionRules } from './styles';
 
 const colors = {
   easy: '#1f4068',
@@ -15,6 +15,15 @@ const Home: React.FC = () => {
   return (
     <HomeContainer>
       <Header />
+      <TitleContainer>
+        <DescriptionTitle>Bem vindo ao Marvel Quiz</DescriptionTitle>
+      </TitleContainer>
+      <DescriptionContainer>
+        <DescriptionRules>O Quiz consiste em acertar os personagens que aparecer de acordo com a dificuldade. Será permitido 3 erros.</DescriptionRules>
+        <DescriptionRules>Fácil: 1 pontos com 15 segundos.</DescriptionRules>
+        <DescriptionRules>Médio: 3 pontos com 10 segundos</DescriptionRules>
+        <DescriptionRules>Difícil: 5 pontos com 10 segundos</DescriptionRules>
+      </DescriptionContainer>
       <ButtonContainer>
         <Button name="easy" label="Fácil" color={colors.easy} />
         <Button name="medium" label="Médio" color={colors.medium} />
