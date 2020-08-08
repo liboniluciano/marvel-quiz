@@ -11,7 +11,7 @@ export const Button = styled.button<ButtonProps>`
   color: black;
   border: 0;
   border-radius: 0.8rem;
-  font: 700 2.0rem Archivo;
+  font: 700 3.0rem Marvel;
   cursor: pointer;
   margin-bottom: 5rem;
   transition: 0.2s;

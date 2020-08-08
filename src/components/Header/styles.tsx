@@ -4,12 +4,13 @@ import logo from '../../assets/images/logo.svg';
 
 export const MenuContent = styled.div`
   height: 6.4rem;
-  max-width: 90rem;
+  max-width: 100vw;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: auto;
+  background: #202020;
 
   @media(min-width: 700px){
     
@@ -29,6 +30,8 @@ export const ItemMenu = styled.a`
   display: flex;
   align-items: center;
   height: 3.2rem;
-  font: 700 3.0rem Popin;
+  font: 700 3.0rem Marvel;
+  text-transform: uppercase;
+  color: #fff;
 
 `;
