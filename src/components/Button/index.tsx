@@ -5,11 +5,11 @@ import React from 'react';
 interface ButtonProps  {
   name: string,
   label: string,
-  color: string
+  color: string,
 }
 
 
-const ButtonHome: React.FC<ButtonProps> = ({name, label, color }) => {
+const ButtonHome: React.FC<ButtonProps> = ({name, label, color}) => {
   return (
     <Button id={name} color={color}>{label}</Button>
   );

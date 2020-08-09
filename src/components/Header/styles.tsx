@@ -7,8 +7,8 @@ export const MenuContent = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: auto;
   background: #202020;
+  margin-bottom: auto;
 
   @media(min-width: 700px){
   }
