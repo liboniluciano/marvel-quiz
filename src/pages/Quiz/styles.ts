@@ -29,7 +29,13 @@ export const ImageContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: -3rem;
+  margin-bottom: -1rem;
+
+  @media(min-width: 70vw) {
+   margin-top: -4rem;
+
+  }
+
 `;
 
 export const PersonImage = styled.img.attrs({

@@ -7,20 +7,21 @@ interface ButtonProps  {
 
 export const Button = styled.button<ButtonProps>`
   color: #FFF;
-  width: 20rem;
-  height: 5.6rem;
+  width: 15rem;
+  height: 6rem;
   border: 0;
   border-radius: 0.8rem;
-  font: 700 3.0rem Marvel;
   cursor: pointer;
-  margin-bottom: 3rem;
   transition: 0.2s;
   outline: 0;
+  margin-bottom: 2rem;
 
-  @media(min-width: 80rem){
+  @media(min-width: 70rem){
     margin-bottom: 1rem;
     width: 25rem;
-    height: 7rem;
+    height: 6rem;
+    font: 700 3.0rem Marvel;
+
 }
 
   ${props => css`
