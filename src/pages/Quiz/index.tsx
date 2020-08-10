@@ -2,8 +2,11 @@ import React from 'react';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';
+import Timer from '../../components/Timer';
 
 import { QuizContainer, FieldsetContainer, PersonsContainer, PersonsLegend, ImageContainer, PersonImage, Questions, ButtonContainer } from './styles';
+
+const time = 5;
 
 const Quiz: React.FC = () => {
   return (
@@ -14,6 +17,7 @@ const Quiz: React.FC = () => {
           <PersonsLegend>Questão 1 de 10</PersonsLegend>
           <ImageContainer>
             <PersonImage />
+            <Timer duration={time} size={50}/>
           </ImageContainer>
           <Questions>
             <Button name='Button1' label='Herói 1' color='#1f4068'/>
