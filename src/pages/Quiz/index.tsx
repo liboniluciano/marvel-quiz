@@ -6,7 +6,7 @@ import Timer from '../../components/Timer';
 
 import { QuizContainer, FieldsetContainer, PersonsContainer, PersonsLegend, ImageContainer, PersonImage, Questions, ButtonContainer } from './styles';
 
-const time = 5;
+const time = 10;
 
 const Quiz: React.FC = () => {
   return (

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Content = styled.div`
+  margin-top: 1rem;
 `;
 
 export const TimerContent = styled.div`
