@@ -1,10 +1,7 @@
-import React from "react";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import React from 'react';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 import {Content, TimerContent, TimerItem} from './styles';
-
-// import './styles.css';
-
 
 const renderTime = ({ remainingTime }) => {
   return <TimerContent>{remainingTime}</TimerContent>

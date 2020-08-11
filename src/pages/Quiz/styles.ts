@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface ImgUrl {
+  url: string
+}
+
 export const QuizContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -36,9 +40,7 @@ export const ImageContainer = styled.div`
   }
 `;
 
-export const PersonImage = styled.img.attrs({
-  src: 'http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16.jpg'
-})`
+export const PersonImage = styled.img`
   width: 10rem;
   height: 10rem;
   border-radius: 80%;
