@@ -10,7 +10,9 @@ import { QuizContainer, FieldsetContainer, PersonsContainer, PersonsLegend, Imag
 interface Persons {
   id: number,
   name: string,
-  thumbnail: string
+  thumbnail: {
+    path:string
+  }
 }
 
 const time = 10;
@@ -35,24 +37,31 @@ const Quiz: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [persons, setPersons] = useState([]);
 
-  useEffect(() => {
-    randomOffSet();
-    randomMainPerson();
-
-   apiMarvel.get(`${process.env.REACT_APP_MARVEL_URL}&offset=${offSet}&apikey=${process.env.REACT_APP_MARVEL_KEY}`)
-    .then(response => {
+  async function getPersons() {
+    const response = await  apiMarvel.get(`${process.env.REACT_APP_MARVEL_URL}&offset=${offSet}&apikey=${process.env.REACT_APP_MARVEL_KEY}`);
       console.log(mainPersonIndex);
 
       const {results} = response.data.data;
-    
-      /** Montando a url da imagem */
-      const {path, extension} = results[mainPersonIndex].thumbnail;
-      
-      setPersons(results);
-      mainPersonUrl = `${path}.${extension}`;
+
+      const validPersons = results.filter((result: Persons) => {
+        return ((!result.thumbnail.path.includes('image_not_available')) && (!result.thumbnail.path.includes('4c002e0305708')));
+      });
+
+      validPersons.slice(0, 4);
+
+      setPersons(validPersons.slice(0,4));
+
+      const {path, extension} = validPersons[mainPersonIndex].thumbnail;
+      mainPersonUrl = `${path}.${extension}`
       setLoading(false);
-   });
-   
+  }
+
+  useEffect(() => {
+    randomOffSet();
+    randomMainPerson();
+    getPersons();
+ 
+   // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
    
   return (
