@@ -1,4 +1,9 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { darken }  from 'polished';
+
+interface ButtonProps  {
+  color: string,
+}
 
 export const HomeContainer = styled.div`
   width: 100vw;
@@ -59,11 +64,37 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 
   @media(min-width: 70rem){
     margin-bottom: 1rem;
     margin-top: 0;
   }
-  
-  `;
+`;
+
+export const ButtonHome = styled.button`
+  color: #FFF;
+  width: 15rem;
+  height: 6rem;
+  border: 0;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: 0.2s;
+  outline: 0;
+  margin-bottom: 2rem;
+
+  ${props => css`
+    background-color: ${props.color};
+
+    &:hover {
+      background-color: ${darken(0.2, props.color || '#FFF')}
+    }
+  `}
+
+  @media(min-width: 70rem){
+    margin-bottom: 1rem;
+    width: 25rem;
+    height: 6rem;
+    font: 700 3.0rem Marvel;
+}
+
+`;

@@ -1,7 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { darken } from 'polished';
 
 interface ImgUrl {
-  url: string
+  url: string;
+}
+
+interface ButtonProps {
+  color: string;
 }
 
 export const QuizContainer = styled.div`
@@ -81,10 +86,10 @@ export const ButtonContainer = styled.div`
   }
 `;
 
-export const ButtonTest = styled.button`
-  background-color: #1f4068;
+export const Button = styled.button<ButtonProps>`
+  font-size: 2rem;
   color: #FFF;
-  width: 15rem;
+  width: 17rem;
   height: 6rem;
   border: 0;
   border-radius: 0.8rem;
@@ -92,6 +97,22 @@ export const ButtonTest = styled.button`
   transition: 0.2s;
   outline: 0;
   margin-bottom: 2rem;
+
+  
+  ${props => css`
+    background-color: ${props.color || '#FFF' };
+
+    &:hover {
+      background-color: ${darken(0.2, props.color || '#FFF')}
+    }
+  `}
+
+  
+  @media(min-width: 70rem){
+    width: 23rem;
+    height: 8rem;
+    font-size: 3rem;
+  }
 `;
 
 

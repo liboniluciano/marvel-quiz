@@ -1,9 +1,12 @@
 import React from 'react';
 
-import Button from '../../components/Button';
+import { useDifficulty } from '../../contexts/difficulty';
+
+import { useHistory } from 'react-router-dom';
+
 import Header from '../../components/Header';
 
-import { HomeContainer, ButtonContainer, TitleContainer, DescriptionTitle, DescriptionContainer, DescriptionRules } from './styles';
+import { HomeContainer, ButtonContainer, TitleContainer, DescriptionTitle, DescriptionContainer, DescriptionRules, ButtonHome } from './styles';
 
 const colors = {
   easy: '#1f4068',
@@ -12,6 +15,15 @@ const colors = {
 }
 
 const Home: React.FC = () => {
+  const { push } = useHistory();
+
+  const { setDifficultyGame } = useDifficulty();
+
+  function handleSetDifficulty(value: string){
+    setDifficultyGame(value);
+    push('/quiz');
+  }
+
   return (
     <HomeContainer>
       <Header />
@@ -25,9 +37,9 @@ const Home: React.FC = () => {
         <DescriptionRules>Difícil: 5 pontos com 10 segundos</DescriptionRules>
       </DescriptionContainer>
       <ButtonContainer>
-        <Button name="easy" label="Fácil" color={colors.easy} />
-        <Button name="medium" label="Médio" color={colors.medium} />
-        <Button name="hard" label="Difícil" color={colors.hard} />
+        <ButtonHome color={colors.easy} onClick={() => handleSetDifficulty('Easy')}>Easy</ButtonHome>
+        <ButtonHome color={colors.medium} onClick={() => handleSetDifficulty('Medium')} >Medium</ButtonHome>
+        <ButtonHome color={colors.hard} onClick={() => handleSetDifficulty('Hard')} >Hard</ButtonHome>
       </ButtonContainer>
     </HomeContainer>
   );

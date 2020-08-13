@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
-import Button from '../../components/Button';
+import { useDifficulty } from '../../contexts/difficulty';
+import { useHistory } from 'react-router-dom';
+
+
 import Header from '../../components/Header';
 import Timer from '../../components/Timer';
 import apiMarvel from '../../services/apiMarvel';
 
-import { QuizContainer, FieldsetContainer, PersonsContainer, PersonsLegend, ImageContainer, PersonImage, Questions, ButtonContainer, ButtonTest } from './styles';
+import { QuizContainer, FieldsetContainer, PersonsContainer, PersonsLegend, ImageContainer, PersonImage, Questions, ButtonContainer, Button } from './styles';
 
 interface Persons {
-  id: number,
-  name: string,
+  id: number;
+  name: string;
   thumbnail: {
-    path:string
+    path:string;
   }
 }
 
@@ -36,6 +39,8 @@ function randomMainPerson() {
 const Quiz: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [persons, setPersons] = useState([]);
+  const { difficultyGame } = useDifficulty();
+  const { push } = useHistory();
 
   async function getPersons() {
     setLoading(true);
@@ -68,13 +73,21 @@ const Quiz: React.FC = () => {
   }
 
   useEffect(() => {
+    if(!difficultyGame){
+     window.alert('Você precisa selecionar uma dificuldade para jogar!');
+     push('/');
+     return;
+    }
     randomOffSet();
     randomMainPerson();
     getPersons();
+
+   // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
   return (
      <QuizContainer>
+      
       <Header /> 
       { !loading &&
         <FieldsetContainer>
@@ -82,19 +95,18 @@ const Quiz: React.FC = () => {
             <PersonsLegend>Questão 1 de 10</PersonsLegend>
             <ImageContainer>
               <PersonImage src={mainPersonUrl}/>
-              <Timer duration={time} size={50}/>
+               <Timer duration={time} size={50}/>
             </ImageContainer>
             <Questions>
                 {persons.map((person: Persons) => {
-                  // return <Button key={person.id} name={person.name} label={person.name} color='#1f4068' />
                   return (
-                  <ButtonTest key={person.id} onClick={() => handleClick(person.id)} name={person.name}>{person.name}</ButtonTest>
+                  <Button key={person.id} color='#1f4068' onClick={() => handleClick(person.id)} name={person.name}>{person.name}</Button>
                   )
                 })}
             </Questions>
           </PersonsContainer>
           <ButtonContainer>
-            <Button name='Pular' label='Pular' color='#00b7c2' />
+            <Button name='Pular' color='#1f4068'>Pular</Button>
           </ButtonContainer> 
         </FieldsetContainer>
      }
