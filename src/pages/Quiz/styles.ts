@@ -79,9 +79,21 @@ export const ButtonContainer = styled.div`
   @media(min-width: 70rem){
     margin-top: 2.0rem;
   }
-
-
 `;
+
+export const ButtonTest = styled.button`
+  background-color: #1f4068;
+  color: #FFF;
+  width: 15rem;
+  height: 6rem;
+  border: 0;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  transition: 0.2s;
+  outline: 0;
+  margin-bottom: 2rem;
+`;
+
 
 
 

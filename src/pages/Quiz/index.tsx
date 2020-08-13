@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import Timer from '../../components/Timer';
 import apiMarvel from '../../services/apiMarvel';
 
-import { QuizContainer, FieldsetContainer, PersonsContainer, PersonsLegend, ImageContainer, PersonImage, Questions, ButtonContainer } from './styles';
+import { QuizContainer, FieldsetContainer, PersonsContainer, PersonsLegend, ImageContainer, PersonImage, Questions, ButtonContainer, ButtonTest } from './styles';
 
 interface Persons {
   id: number,
@@ -38,6 +38,7 @@ const Quiz: React.FC = () => {
   const [persons, setPersons] = useState([]);
 
   async function getPersons() {
+    setLoading(true);
     const response = await  apiMarvel.get(`${process.env.REACT_APP_MARVEL_URL}&offset=${offSet}&apikey=${process.env.REACT_APP_MARVEL_KEY}`);
       console.log(mainPersonIndex);
 
@@ -47,8 +48,6 @@ const Quiz: React.FC = () => {
         return ((!result.thumbnail.path.includes('image_not_available')) && (!result.thumbnail.path.includes('4c002e0305708')));
       });
 
-      validPersons.slice(0, 4);
-
       setPersons(validPersons.slice(0,4));
 
       const {path, extension} = validPersons[mainPersonIndex].thumbnail;
@@ -56,14 +55,24 @@ const Quiz: React.FC = () => {
       setLoading(false);
   }
 
+  function handleClick(idPerson: number){
+
+    const { id } = persons[mainPersonIndex];
+
+    randomOffSet();
+    randomMainPerson();
+    getPersons();
+
+    console.log(id);
+
+  }
+
   useEffect(() => {
     randomOffSet();
     randomMainPerson();
     getPersons();
- 
-   // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
-   
+
   return (
      <QuizContainer>
       <Header /> 
@@ -76,13 +85,16 @@ const Quiz: React.FC = () => {
               <Timer duration={time} size={50}/>
             </ImageContainer>
             <Questions>
-              {persons.map((person: Persons) => {
-                return <Button key={person.id} name={person.name} label={person.name} color='#1f4068'/>
-              })}
+                {persons.map((person: Persons) => {
+                  // return <Button key={person.id} name={person.name} label={person.name} color='#1f4068' />
+                  return (
+                  <ButtonTest key={person.id} onClick={() => handleClick(person.id)} name={person.name}>{person.name}</ButtonTest>
+                  )
+                })}
             </Questions>
           </PersonsContainer>
           <ButtonContainer>
-            <Button name='Pular' label='Pular' color='#00b7c2'/>
+            <Button name='Pular' label='Pular' color='#00b7c2' />
           </ButtonContainer> 
         </FieldsetContainer>
      }
