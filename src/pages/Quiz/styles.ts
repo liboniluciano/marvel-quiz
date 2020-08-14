@@ -8,6 +8,7 @@ interface ImgUrl {
 
 interface ButtonProps {
   color: string;
+  math?: boolean;
 }
 
 export const QuizContainer = styled.div`
@@ -59,9 +60,11 @@ export const PersonImage = styled.img`
 
 export const PersonsContainer = styled.fieldset`
   width: 30rem;
+  height: 53rem;
 
   @media(min-width: 70rem){
     width: 100rem;
+    height: 60rem;
   }
 `;
 
@@ -100,7 +103,7 @@ export const Button = styled.button<ButtonProps>`
   margin-bottom: 2rem;
 
   ${props => css`
-    background-color: ${props.color || '#FFF' };
+    background-color: ${props.color ||  '#FFF' };
     &:hover {
       background-color: ${darken(0.2, props.color || '#FFF')}
     }

@@ -34,12 +34,12 @@ const Home: React.FC = () => {
         <DescriptionRules>O Quiz consiste em acertar os personagens que aparecer de acordo com a dificuldade. Será permitido 3 erros.</DescriptionRules>
         <DescriptionRules>Fácil: 1 pontos com 15 segundos.</DescriptionRules>
         <DescriptionRules>Médio: 3 pontos com 10 segundos</DescriptionRules>
-        <DescriptionRules>Difícil: 5 pontos com 10 segundos</DescriptionRules>
+        <DescriptionRules>Difícil: 5 pontos com 5 segundos</DescriptionRules>
       </DescriptionContainer>
       <ButtonContainer>
-        <ButtonHome color={colors.easy} onClick={() => handleSetDifficulty('Easy')}>Easy</ButtonHome>
-        <ButtonHome color={colors.medium} onClick={() => handleSetDifficulty('Medium')} >Medium</ButtonHome>
-        <ButtonHome color={colors.hard} onClick={() => handleSetDifficulty('Hard')} >Hard</ButtonHome>
+        <ButtonHome color={colors.easy} onClick={() => handleSetDifficulty('Easy')}>Fácil</ButtonHome>
+        <ButtonHome color={colors.medium} onClick={() => handleSetDifficulty('Medium')} >Médio</ButtonHome>
+        <ButtonHome color={colors.hard} onClick={() => handleSetDifficulty('Hard')} >Difícil</ButtonHome>
       </ButtonContainer>
     </HomeContainer>
   );

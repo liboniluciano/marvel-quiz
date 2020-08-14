@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import Timer from '../../components/Timer';
+import Loading from '../../components/Loading';
 
 import { QuizContainer, FieldsetContainer, PersonsContainer, PersonsLegend, ImageContainer, PersonImage, Questions, ButtonContainer, Button } from './styles';
 
@@ -14,7 +15,7 @@ interface Persons {
   id: number;
   name: string;
   thumbnail: {
-    path:string;
+    path: string;
   }
 }
 
@@ -27,19 +28,20 @@ let mainPersonUrl = '';
 let scoreUser = 0;
 let points = 0;
 let timerDifficulty = 0;
+let disabled = false;
 
 function randomOffSet() {
-  offSet = Math.floor(Math.random() * (+max + 1 - +min)) + +min; 
-  return  offSet;
+  offSet = Math.floor(Math.random() * (+max + 1 - +min)) + +min;
+  return offSet;
 }
 
 function randomMainPerson() {
-  mainPersonIndex = Math.floor(Math.random() * (+3 + 0 - +0)) + +1; 
-  return  mainPersonIndex;
+  mainPersonIndex = Math.floor(Math.random() * (+3 + 0 - +0)) + +1;
+  return mainPersonIndex;
 }
 
 const Quiz: React.FC = () => {
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [persons, setPersons] = useState([]); // Lista de personagens 
   const [score, setScore] = useState(0); // Pontuação do jogador
   const { difficultyGame } = useDifficulty(); // Dificuldade do jogo
@@ -49,23 +51,25 @@ const Quiz: React.FC = () => {
 
   async function getPersons() {
     setLoading(true);
-    const response = await  apiMarvel.get(`${process.env.REACT_APP_MARVEL_URL}&offset=${offSet}&apikey=${process.env.REACT_APP_MARVEL_KEY}`);
-      const {results} = response.data.data;
+    const response = await apiMarvel.get(`${process.env.REACT_APP_MARVEL_URL}&offset=${offSet}&apikey=${process.env.REACT_APP_MARVEL_KEY}`);
+    console.log(mainPersonIndex);
 
-      const validPersons = results.filter((result: Persons) => {
-        return ((!result.thumbnail.path.includes('image_not_available')) && (!result.thumbnail.path.includes('4c002e0305708')));
-      });
+    const { results } = response.data.data;
 
-      setPersons(validPersons.slice(0,4));
+    const validPersons = results.filter((result: Persons) => {
+      return ((!result.thumbnail.path.includes('image_not_available')) && (!result.thumbnail.path.includes('4c002e0305708')));
+    });
 
-      const {path, extension} = validPersons[mainPersonIndex].thumbnail;
-      mainPersonUrl = `${path}.${extension}`
+    setPersons(validPersons.slice(0, 4));
 
-      setLoading(false);
+    const { path, extension } = validPersons[mainPersonIndex].thumbnail;
+    mainPersonUrl = `${path}.${extension}`
+
+    setLoading(false);
   }
 
-  function verifyDifficulty(){
-    if(difficultyGame === 'Easy') {
+  function verifyDifficulty() {
+    if (difficultyGame === 'Easy') {
       points = 1;
       timerDifficulty = 15;
     } else if (difficultyGame === 'Medium') {
@@ -77,11 +81,11 @@ const Quiz: React.FC = () => {
     }
   }
 
-  function handleClick(idPerson: number){
+  function handleClick(idPerson: number) {
     const { id } = persons[mainPersonIndex];
 
     /** Verificando se acertou a resposta */
-    if(idPerson === id){
+    if (idPerson === id) {
       scoreUser += points;
     }
     setQuestionNumber(questionNumber => questionNumber + 1);
@@ -92,8 +96,9 @@ const Quiz: React.FC = () => {
   }
 
   function handleJump() {
-    if(jump === 3){
+    if (jump === 3) {
       alert('Você não possui mais pulos disponíveis!');
+      disabled = true;
       return;
     }
     setJump(jump => jump + 1);
@@ -104,19 +109,19 @@ const Quiz: React.FC = () => {
   }
 
   function timerOver() {
-    setQuestionNumber(setQuestionNumber => setQuestionNumber +1);
+    setQuestionNumber(setQuestionNumber => setQuestionNumber + 1);
     randomOffSet();
     randomMainPerson();
     getPersons();
   }
 
   useEffect(() => {
-    if(!difficultyGame){
-     window.alert('Você precisa selecionar uma dificuldade para jogar!');
-     push('/');
-     return;
+    if (!difficultyGame) {
+      window.alert('Você precisa selecionar uma dificuldade para jogar!');
+      push('/');
+      return;
     }
-    if(questionNumber === 11){
+    if (questionNumber === 11) {
       alert(`Fim de jogo! Sua pontuação foi de ${score} pontos!`);
       push('/');
       return;
@@ -126,34 +131,43 @@ const Quiz: React.FC = () => {
     randomMainPerson();
     getPersons();
 
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [score, questionNumber, jump]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [score, questionNumber, jump]);
 
   return (
-     <QuizContainer>
-      <Header /> 
-      { !loading &&
-        <FieldsetContainer>
-          <PersonsContainer>
-            <PersonsLegend>Questão {questionNumber} de 10</PersonsLegend>
-            <ImageContainer>
-              <PersonImage src={mainPersonUrl}/>
-               <Timer duration={timerDifficulty} size={50} onComplete={timerOver}/>
-            </ImageContainer>
-            <Questions>
+    <QuizContainer>
+      <Header />
+      <FieldsetContainer>
+        <PersonsContainer>
+          <PersonsLegend>Questão {questionNumber} de 10</PersonsLegend>
+          {loading ? <Loading /> :
+            <>
+              <ImageContainer>
+                <PersonImage src={mainPersonUrl} />
+                <Timer duration={timerDifficulty} size={50} onComplete={timerOver} />
+              </ImageContainer>
+              <Questions>
                 {persons.map((person: Persons) => {
+
                   return (
-                  <Button key={person.id} color='#1f4068' onClick={() => handleClick(person.id)} name={person.name}>{person.name}</Button>
+                    <Button key={person.id}
+                      color='#1f4068'
+                      onClick={() => handleClick(person.id)}
+                      name={person.name}>{person.name}
+                    </Button>
                   )
                 })}
-            </Questions>
-          </PersonsContainer>
-          <ButtonContainer>
-            <Button name='Pular' color='#1b1b2f' onClick={handleJump}>Pular</Button>
-          </ButtonContainer> 
-        </FieldsetContainer>
-     }
-     </QuizContainer>
+              </Questions>
+            </>
+          }
+        </PersonsContainer>
+
+        <ButtonContainer>
+          <Button name='Pular' disabled={disabled} color='#1b1b2f' onClick={handleJump}>Pular</Button>
+        </ButtonContainer>
+      </FieldsetContainer>
+
+    </QuizContainer>
   );
 }
 
