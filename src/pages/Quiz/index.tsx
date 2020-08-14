@@ -27,7 +27,6 @@ let mainPersonUrl = '';
 let scoreUser = 0;
 let points = 0;
 let timerDifficulty = 0;
-let disabled = false;
 
 function randomOffSet() {
   offSet = Math.floor(Math.random() * (+max + 1 - +min)) + +min; 
@@ -51,8 +50,6 @@ const Quiz: React.FC = () => {
   async function getPersons() {
     setLoading(true);
     const response = await  apiMarvel.get(`${process.env.REACT_APP_MARVEL_URL}&offset=${offSet}&apikey=${process.env.REACT_APP_MARVEL_KEY}`);
-      console.log(mainPersonIndex);
-
       const {results} = response.data.data;
 
       const validPersons = results.filter((result: Persons) => {
@@ -92,14 +89,11 @@ const Quiz: React.FC = () => {
     randomOffSet();
     randomMainPerson();
     getPersons();
-    console.log(id);
   }
 
   function handleJump() {
-    console.log('jumppp', jump);
     if(jump === 3){
       alert('Você não possui mais pulos disponíveis!');
-      disabled = true;
       return;
     }
     setJump(jump => jump + 1);
@@ -131,7 +125,6 @@ const Quiz: React.FC = () => {
     randomOffSet();
     randomMainPerson();
     getPersons();
-    console.log('score atual', score);
 
    // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [score, questionNumber, jump]);
@@ -156,7 +149,7 @@ const Quiz: React.FC = () => {
             </Questions>
           </PersonsContainer>
           <ButtonContainer>
-            <Button name='Pular' disabled={disabled} color='#1b1b2f' onClick={handleJump}>Pular</Button>
+            <Button name='Pular' color='#1b1b2f' onClick={handleJump}>Pular</Button>
           </ButtonContainer> 
         </FieldsetContainer>
      }
