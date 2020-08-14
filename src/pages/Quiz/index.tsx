@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { useDifficulty } from '../../contexts/difficulty';
 import { useHistory } from 'react-router-dom';
 
-
 import Header from '../../components/Header';
 import Timer from '../../components/Timer';
-import apiMarvel from '../../services/apiMarvel';
 
 import { QuizContainer, FieldsetContainer, PersonsContainer, PersonsLegend, ImageContainer, PersonImage, Questions, ButtonContainer, Button } from './styles';
+
+import apiMarvel from '../../services/apiMarvel';
 
 interface Persons {
   id: number;
@@ -18,13 +18,16 @@ interface Persons {
   }
 }
 
-const time = 10;
+// const time = 10;
 const min = 1;
 const max = 1488;
 let offSet = 0;
 let mainPersonIndex = 0;
 let mainPersonUrl = '';
-
+let scoreUser = 0;
+let points = 0;
+let timerDifficulty = 0;
+let disabled = false;
 
 function randomOffSet() {
   offSet = Math.floor(Math.random() * (+max + 1 - +min)) + +min; 
@@ -37,9 +40,12 @@ function randomMainPerson() {
 }
 
 const Quiz: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [persons, setPersons] = useState([]);
-  const { difficultyGame } = useDifficulty();
+  const [loading, setLoading] = useState(true); 
+  const [persons, setPersons] = useState([]); // Lista de personagens 
+  const [score, setScore] = useState(0); // Pontuação do jogador
+  const { difficultyGame } = useDifficulty(); // Dificuldade do jogo
+  const [questionNumber, setQuestionNumber] = useState(1); // Quantidade de questões
+  const [jump, setJump] = useState(0); // Quantidade de pulos disponíveis
   const { push } = useHistory();
 
   async function getPersons() {
@@ -57,19 +63,57 @@ const Quiz: React.FC = () => {
 
       const {path, extension} = validPersons[mainPersonIndex].thumbnail;
       mainPersonUrl = `${path}.${extension}`
+
       setLoading(false);
   }
 
-  function handleClick(idPerson: number){
+  function verifyDifficulty(){
+    if(difficultyGame === 'Easy') {
+      points = 1;
+      timerDifficulty = 15;
+    } else if (difficultyGame === 'Medium') {
+      points = 3;
+      timerDifficulty = 10;
+    } else {
+      points = 5;
+      timerDifficulty = 5;
+    }
+  }
 
+  function handleClick(idPerson: number){
     const { id } = persons[mainPersonIndex];
 
+    /** Verificando se acertou a resposta */
+    if(idPerson === id){
+      scoreUser += points;
+    }
+    setQuestionNumber(questionNumber => questionNumber + 1);
+    setScore(scoreUser);
     randomOffSet();
     randomMainPerson();
     getPersons();
-
     console.log(id);
+  }
 
+  function handleJump() {
+    console.log('jumppp', jump);
+    if(jump === 3){
+      alert('Você não possui mais pulos disponíveis!');
+      disabled = true;
+      return;
+    }
+    setJump(jump => jump + 1);
+    setQuestionNumber(questionNumber);
+    randomOffSet();
+    randomMainPerson();
+    getPersons();
+  }
+
+  function timerOver() {
+    setQuestionNumber(setQuestionNumber => setQuestionNumber +1);
+    randomOffSet();
+    randomMainPerson();
+    getPersons();
   }
 
   useEffect(() => {
@@ -78,24 +122,30 @@ const Quiz: React.FC = () => {
      push('/');
      return;
     }
+    if(questionNumber === 11){
+      alert(`Fim de jogo! Sua pontuação foi de ${score} pontos!`);
+      push('/');
+      return;
+    }
+    verifyDifficulty();
     randomOffSet();
     randomMainPerson();
     getPersons();
+    console.log('score atual', score);
 
    // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
+   }, [score, questionNumber, jump]);
 
   return (
      <QuizContainer>
-      
       <Header /> 
       { !loading &&
         <FieldsetContainer>
           <PersonsContainer>
-            <PersonsLegend>Questão 1 de 10</PersonsLegend>
+            <PersonsLegend>Questão {questionNumber} de 10</PersonsLegend>
             <ImageContainer>
               <PersonImage src={mainPersonUrl}/>
-               <Timer duration={time} size={50}/>
+               <Timer duration={timerDifficulty} size={50} onComplete={timerOver}/>
             </ImageContainer>
             <Questions>
                 {persons.map((person: Persons) => {
@@ -106,7 +156,7 @@ const Quiz: React.FC = () => {
             </Questions>
           </PersonsContainer>
           <ButtonContainer>
-            <Button name='Pular' color='#1f4068'>Pular</Button>
+            <Button name='Pular' disabled={disabled} color='#1b1b2f' onClick={handleJump}>Pular</Button>
           </ButtonContainer> 
         </FieldsetContainer>
      }

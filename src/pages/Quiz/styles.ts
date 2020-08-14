@@ -3,6 +3,7 @@ import { darken } from 'polished';
 
 interface ImgUrl {
   url: string;
+  disabled: boolean;
 }
 
 interface ButtonProps {
@@ -98,15 +99,16 @@ export const Button = styled.button<ButtonProps>`
   outline: 0;
   margin-bottom: 2rem;
 
-  
   ${props => css`
     background-color: ${props.color || '#FFF' };
-
     &:hover {
       background-color: ${darken(0.2, props.color || '#FFF')}
     }
   `}
 
+  ${props => props.disabled && css`
+    cursor: no-drop;
+  `}
   
   @media(min-width: 70rem){
     width: 23rem;
