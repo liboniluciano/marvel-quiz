@@ -19,7 +19,6 @@ interface Persons {
   }
 }
 
-// const time = 10;
 const min = 1;
 const max = 1488;
 let offSet = 0;
@@ -28,7 +27,6 @@ let mainPersonUrl = '';
 let scoreUser = 0;
 let points = 0;
 let timerDifficulty = 0;
-let disabled = false;
 
 function randomOffSet() {
   offSet = Math.floor(Math.random() * (+max + 1 - +min)) + +min;
@@ -44,15 +42,17 @@ const Quiz: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [persons, setPersons] = useState([]); // Lista de personagens 
   const [score, setScore] = useState(0); // Pontuação do jogador
-  const { difficultyGame } = useDifficulty(); // Dificuldade do jogo
   const [questionNumber, setQuestionNumber] = useState(1); // Quantidade de questões
   const [jump, setJump] = useState(0); // Quantidade de pulos disponíveis
+  const [mainPersonId, setMainPersonId] = useState(null);
+  const [disabled, setDisabled] = useState(false); // Manipular click do botão pular
+  
+  const { difficultyGame } = useDifficulty(); // Dificuldade do jogo
   const { push } = useHistory();
 
   async function getPersons() {
     setLoading(true);
     const response = await apiMarvel.get(`${process.env.REACT_APP_MARVEL_URL}&offset=${offSet}&apikey=${process.env.REACT_APP_MARVEL_KEY}`);
-    console.log(mainPersonIndex);
 
     const { results } = response.data.data;
 
@@ -71,34 +71,38 @@ const Quiz: React.FC = () => {
   function verifyDifficulty() {
     if (difficultyGame === 'Easy') {
       points = 1;
-      timerDifficulty = 15;
+      timerDifficulty = 900;
     } else if (difficultyGame === 'Medium') {
       points = 3;
-      timerDifficulty = 10;
+      timerDifficulty = 12;
     } else {
       points = 5;
-      timerDifficulty = 5;
+      timerDifficulty = 7;
     }
   }
 
   function handleClick(idPerson: number) {
     const { id } = persons[mainPersonIndex];
+    setMainPersonId(id);
 
     /** Verificando se acertou a resposta */
-    if (idPerson === id) {
-      scoreUser += points;
-    }
-    setQuestionNumber(questionNumber => questionNumber + 1);
-    setScore(scoreUser);
-    randomOffSet();
-    randomMainPerson();
-    getPersons();
+
+    setTimeout(() => {
+      if (idPerson === id) {
+        scoreUser += points;
+      }
+      setQuestionNumber(questionNumber => questionNumber + 1);
+      setScore(scoreUser);
+      randomOffSet();
+      randomMainPerson();
+      getPersons();
+    }, 1500);
   }
 
   function handleJump() {
     if (jump === 3) {
       alert('Você não possui mais pulos disponíveis!');
-      disabled = true;
+      setDisabled(true);
       return;
     }
     setJump(jump => jump + 1);
@@ -116,6 +120,15 @@ const Quiz: React.FC = () => {
   }
 
   useEffect(() => {
+    verifyDifficulty();
+    randomOffSet();
+    randomMainPerson();
+    getPersons();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (!difficultyGame) {
       window.alert('Você precisa selecionar uma dificuldade para jogar!');
       push('/');
@@ -126,13 +139,9 @@ const Quiz: React.FC = () => {
       push('/');
       return;
     }
-    verifyDifficulty();
-    randomOffSet();
-    randomMainPerson();
-    getPersons();
-
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [score, questionNumber, jump]);
+  }, [score, questionNumber, jump, difficultyGame]);
 
   return (
     <QuizContainer>
@@ -148,9 +157,9 @@ const Quiz: React.FC = () => {
               </ImageContainer>
               <Questions>
                 {persons.map((person: Persons) => {
-
                   return (
                     <Button key={person.id}
+                      isCorrect={person.id === mainPersonId}
                       color='#1f4068'
                       onClick={() => handleClick(person.id)}
                       name={person.name}>{person.name}

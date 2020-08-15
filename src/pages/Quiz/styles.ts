@@ -8,7 +8,8 @@ interface ImgUrl {
 
 interface ButtonProps {
   color: string;
-  math?: boolean;
+  isCorrect?: boolean;
+  disabled?: boolean;
 }
 
 export const QuizContainer = styled.div`
@@ -16,7 +17,6 @@ export const QuizContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
   margin-bottom: auto;
 `;
 
@@ -104,13 +104,20 @@ export const Button = styled.button<ButtonProps>`
 
   ${props => css`
     background-color: ${props.color ||  '#FFF' };
+    border: 4px solid ${props.isCorrect ? '#158467' : 'transparent'};
+    
     &:hover {
-      background-color: ${darken(0.2, props.color || '#FFF')}
+      background-color: ${darken(0.2, props.color || '#FFF')};
     }
   `}
 
   ${props => props.disabled && css`
     cursor: no-drop;
+    opacity: 0.6;
+
+    &:hover {
+      background-color: ${props.color}
+    }
   `}
   
   @media(min-width: 70rem){
