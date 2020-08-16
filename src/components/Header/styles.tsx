@@ -21,7 +21,7 @@ export const HeaderImg = styled.img.attrs({
 width: 10rem;
 `
 
-export const ItemMenu = styled.a`
+export const ItemMenu = styled.p`
   margin-right: 1.5rem;
   max-width: 100vw;
   display: flex;
@@ -30,5 +30,6 @@ export const ItemMenu = styled.a`
   font: 700 3rem Marvel;
   text-transform: uppercase;
   color: #fff;
+  text-decoration: none;
 
 `;
