@@ -56,8 +56,6 @@ export const RankingListItem = styled.li`
   @media(min-width: 70rem){
   font-size: 3rem;
   }
-
-
 `;
 
 

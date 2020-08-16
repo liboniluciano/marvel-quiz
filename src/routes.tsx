@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Quiz from './pages/Quiz';
 import About from './pages/About';
 import Ranking from './pages/Ranking';
+import Score from './pages/Score';
 
 function Routes() {
   return (
@@ -17,6 +18,7 @@ function Routes() {
       </DifficultyProvider>
       <Route path="/about" component={About} />
       <Route path="/ranking" component={Ranking} />
+      <Route path="/score" component={Score} />
     </BrowserRouter>
   );
 }
