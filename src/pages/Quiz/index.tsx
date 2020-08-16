@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { useDifficulty } from '../../contexts/difficulty';
+import { useScore } from '../../contexts/score';
+
 import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header';
@@ -41,13 +43,15 @@ function randomMainPerson() {
 const Quiz: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [persons, setPersons] = useState([]); // Lista de personagens 
-  const [score, setScore] = useState(0); // Pontuação do jogador
+  const [scoreGame, setScoreGame] = useState(0); // Pontuação do jogador
   const [questionNumber, setQuestionNumber] = useState(1); // Quantidade de questões
   const [jump, setJump] = useState(0); // Quantidade de pulos disponíveis
   const [mainPersonId, setMainPersonId] = useState(null);
   const [disabled, setDisabled] = useState(false); // Manipular click do botão pular
   
+  
   const { difficultyGame } = useDifficulty(); // Dificuldade do jogo
+  const { setScoreEndGame } = useScore();
   const { push } = useHistory();
 
   async function getPersons() {
@@ -71,7 +75,7 @@ const Quiz: React.FC = () => {
   function verifyDifficulty() {
     if (difficultyGame === 'Easy') {
       points = 1;
-      timerDifficulty = 900;
+      timerDifficulty = 15;
     } else if (difficultyGame === 'Medium') {
       points = 3;
       timerDifficulty = 12;
@@ -90,9 +94,10 @@ const Quiz: React.FC = () => {
     setTimeout(() => {
       if (idPerson === id) {
         scoreUser += points;
+        setScoreEndGame(scoreUser);
       }
       setQuestionNumber(questionNumber => questionNumber + 1);
-      setScore(scoreUser);
+      setScoreGame(scoreUser);
       randomOffSet();
       randomMainPerson();
       getPersons();
@@ -131,17 +136,15 @@ const Quiz: React.FC = () => {
   useEffect(() => {
     if (!difficultyGame) {
       window.alert('Você precisa selecionar uma dificuldade para jogar!');
-      push('/');
+      push({});
       return;
     }
     if (questionNumber === 11) {
-      alert(`Fim de jogo! Sua pontuação foi de ${score} pontos!`);
-      push('/');
+      push('/score');
       return;
     }
-    
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [score, questionNumber, jump, difficultyGame]);
+  }, [scoreGame, questionNumber, jump, difficultyGame]);
 
   return (
     <QuizContainer>
@@ -170,12 +173,10 @@ const Quiz: React.FC = () => {
             </>
           }
         </PersonsContainer>
-
         <ButtonContainer>
           <Button name='Pular' disabled={disabled} color='#1b1b2f' onClick={handleJump}>Pular</Button>
         </ButtonContainer>
       </FieldsetContainer>
-
     </QuizContainer>
   );
 }

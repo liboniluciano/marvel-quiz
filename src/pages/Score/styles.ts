@@ -50,7 +50,6 @@ export const Input = styled.input`
     height: 7rem;
     width: 50rem;
     font-size: 2rem;
-
   }
 `;
 
@@ -65,6 +64,14 @@ export const Button = styled.button`
   border-radius: 0.8rem;
   cursor: pointer;
   font: 1.6;
+`;
+
+export const PlayAgain = styled.div`
+  margin-top: 20rem;
+
+  @media(min-width: 70rem){
+    margin-top: 30rem;
+  }
 `;
 
 

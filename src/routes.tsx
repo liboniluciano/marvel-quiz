@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import { DifficultyProvider } from './contexts/difficulty';
+import { ScoreProvider } from './contexts/score'
 
 import Home from './pages/Home';
 import Quiz from './pages/Quiz';
@@ -14,11 +15,13 @@ function Routes() {
     <BrowserRouter>
       <DifficultyProvider>
         <Route path="/" exact component={Home} />
-        <Route path="/quiz" component={Quiz} />
+        <ScoreProvider>
+          <Route path="/quiz" component={Quiz} />
+          <Route path="/score" component={Score} />
+        </ScoreProvider>
       </DifficultyProvider>
       <Route path="/about" component={About} />
       <Route path="/ranking" component={Ranking} />
-      <Route path="/score" component={Score} />
     </BrowserRouter>
   );
 }

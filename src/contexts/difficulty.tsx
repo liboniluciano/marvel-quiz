@@ -8,7 +8,7 @@ interface DifficultyContextData {
 const DifficultyContext = createContext<DifficultyContextData>({} as DifficultyContextData);
 
   const DifficultyProvider: React.FC = ({ children }) => {
-  const [difficulty, setDifficulty] =  useState('');
+    const [difficulty, setDifficulty] =  useState('');
 
   function setDifficultyGame(diff: string) {
     setDifficulty(diff);
