@@ -7,7 +7,9 @@ import { MenuContent, ItemMenu, HeaderImg } from './styles';
 const Header: React.FC = () => {
   return (
     <MenuContent>
+      <Link to="/ranking" style={{ textDecoration: 'none' }}>
       <ItemMenu>Ranking</ItemMenu>
+      </Link>
       <Link to="/" style={{ textDecoration: 'none' }}>
         <ItemMenu>
           <HeaderImg />
