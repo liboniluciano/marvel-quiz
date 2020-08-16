@@ -1,18 +1,22 @@
 import styled, { css } from 'styled-components';
 import { darken }  from 'polished';
 
-interface ButtonProps  {
-  color: string,
-}
-
 export const HomeContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: auto;
+
+`;
+
+export const Description = styled.div`
+  margin-top: 5rem;
+
+  @media(min-width: 70rem){
+  margin-bottom: 10rem;
+
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -23,7 +27,7 @@ export const TitleContainer = styled.div`
   
   @media(min-width: 700px){
     align-content: center;
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
 
   }
 `;
@@ -41,15 +45,14 @@ export const DescriptionTitle = styled.p`
 export const DescriptionContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-items: center; 
   flex-direction: column; 
   margin: 0 0.5rem;
-  margin-bottom: 1rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 
   @media(min-width: 70rem){
     align-content: center;
-    margin-bottom: 2rem;
-
+    margin-bottom: 4rem;
   }
 `;
 
