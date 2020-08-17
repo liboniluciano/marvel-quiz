@@ -18,6 +18,8 @@ export const QuizContainer = styled.div`
   align-items: center;
   flex-direction: column;
   margin-bottom: auto;
+  color: #FFF;
+
 `;
 
 export const FieldsetContainer = styled.div`
@@ -32,7 +34,6 @@ export const PersonsLegend = styled.legend`
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 4rem;
-  color: #FFF;
   width: 100%;
 `;
 
@@ -83,16 +84,16 @@ export const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 
   @media(min-width: 70rem){
-    margin-top: 2.0rem;
+    margin-top: 1rem;
   }
 `;
 
 export const Button = styled.button<ButtonProps>`
-  font-size: 2rem;
   color: #FFF;
+  font-size: 2rem;
   width: 17rem;
   height: 6rem;
   border: 0;
@@ -125,6 +126,10 @@ export const Button = styled.button<ButtonProps>`
     height: 8rem;
     font-size: 3rem;
   }
+`;
+
+export const JumpRemain = styled.p`
+  font-size: 2rem;
 `;
 
 

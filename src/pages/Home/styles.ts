@@ -7,7 +7,6 @@ export const HomeContainer = styled.div`
   align-items: center;
   flex-direction: column;
   margin-bottom: auto;
-
 `;
 
 export const Description = styled.div`
@@ -15,7 +14,6 @@ export const Description = styled.div`
 
   @media(min-width: 70rem){
   margin-bottom: 10rem;
-
   }
 `;
 
@@ -48,11 +46,10 @@ export const DescriptionContainer = styled.div`
   flex-direction: column; 
   margin: 0 1rem;
   margin-top: 5rem;
-  margin-bottom: 5rem;
+  /* margin-bottom: 5rem; */
 
   @media(min-width: 70rem){
     align-content: center;
-    margin-bottom: 4rem;
   }
 `;
 
@@ -67,11 +64,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  @media(min-width: 70rem){
-    margin-bottom: 1rem;
-    margin-top: 0;
-  }
+  margin-top: 5rem;
 `;
 
 export const ButtonHome = styled.button`

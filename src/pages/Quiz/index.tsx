@@ -136,7 +136,7 @@ const Quiz: React.FC = () => {
   useEffect(() => {
     if (!difficultyGame) {
       window.alert('Você precisa selecionar uma dificuldade para jogar!');
-      push({});
+      push('/');
       return;
     }
     if (questionNumber === 11) {
@@ -174,6 +174,7 @@ const Quiz: React.FC = () => {
           }
         </PersonsContainer>
         <ButtonContainer>
+          <p>Pulos restantes: {3 - jump}</p>
           <Button name='Pular' disabled={disabled} color='#1b1b2f' onClick={handleJump}>Pular</Button>
         </ButtonContainer>
       </FieldsetContainer>
