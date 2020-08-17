@@ -11,10 +11,6 @@ export const HomeContainer = styled.div`
 
 export const Description = styled.div`
   margin-top: 2rem;
-
-  @media(min-width: 70rem){
-  margin-bottom: 10rem;
-  }
 `;
 
 export const TitleContainer = styled.div`
@@ -26,7 +22,6 @@ export const TitleContainer = styled.div`
   @media(min-width: 700px){
     align-content: center;
     margin-bottom: 5rem;
-
   }
 `;
 
@@ -46,7 +41,6 @@ export const DescriptionContainer = styled.div`
   flex-direction: column; 
   margin: 0 1rem;
   margin-top: 5rem;
-  /* margin-bottom: 5rem; */
 
   @media(min-width: 70rem){
     align-content: center;
@@ -92,5 +86,4 @@ export const ButtonHome = styled.button`
     height: 6rem;
     font: 700 3.0rem Marvel;
 }
-
 `;
