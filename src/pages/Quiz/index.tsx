@@ -75,7 +75,7 @@ const Quiz: React.FC = () => {
   function verifyDifficulty() {
     if (difficultyGame === 'Easy') {
       points = 1;
-      timerDifficulty = 15;
+      timerDifficulty = 900;
     } else if (difficultyGame === 'Medium') {
       points = 3;
       timerDifficulty = 12;

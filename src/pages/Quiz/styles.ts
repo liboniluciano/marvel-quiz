@@ -61,7 +61,7 @@ export const PersonImage = styled.img`
 
 export const PersonsContainer = styled.fieldset`
   width: 30rem;
-  height: 53rem;
+  height: 50rem;
 
   @media(min-width: 70rem){
     width: 100rem;
@@ -101,7 +101,7 @@ export const Button = styled.button<ButtonProps>`
   cursor: pointer;
   transition: 0.2s;
   outline: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 
   ${props => css`
     background-color: ${props.color ||  '#FFF' };

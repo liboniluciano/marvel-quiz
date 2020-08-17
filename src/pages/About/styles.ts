@@ -58,10 +58,14 @@ export const A = styled.a`
 `;
 
 export const ContactContainer = styled.div`
-  margin-top: 10rem;
+  margin-top: 5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media(min-width: 70rem){
+    margin-top: 10rem;
+  }
 `;
 
 export const LinkSocials = styled.a`
