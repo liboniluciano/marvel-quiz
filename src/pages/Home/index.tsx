@@ -10,8 +10,8 @@ import { HomeContainer, ButtonContainer, TitleContainer, DescriptionTitle, Descr
 
 const colors = {
   easy: '#1f4068',
-  medium: '#1b1b2f',
-  hard: '#e43f5a'
+  medium: '#162447',
+  hard: '#1B1B2F'
 }
 
 const Home: React.FC = () => {
@@ -32,8 +32,10 @@ const Home: React.FC = () => {
           <DescriptionTitle>Bem vindo ao Marvel Quiz</DescriptionTitle>
         </TitleContainer>
         <DescriptionContainer>
-          <DescriptionRules>O Quiz consiste em acertar os personagens que aparecer de acordo com a dificuldade. Será permitido 3 erros.</DescriptionRules>
-          <DescriptionRules>Fácil: 1 pontos com 15 segundos.</DescriptionRules>
+          <DescriptionRules>
+             Neste quiz, aparecerão personagens da Marvel, onde o tempo de resposta muda de acordo com a dificuldade. Você também pode realizar 3 pulos sem perder a questão.
+            </DescriptionRules> 
+          <DescriptionRules>Fácil: 1 ponto com 15 segundos.</DescriptionRules>
           <DescriptionRules>Médio: 3 pontos com 10 segundos</DescriptionRules>
           <DescriptionRules>Difícil: 5 pontos com 5 segundos</DescriptionRules>
         </DescriptionContainer>

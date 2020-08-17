@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
   color: #FFF;
 
   display: flex;
@@ -10,6 +8,7 @@ export const Container = styled.div`
   align-items: center;
   margin-bottom: auto;
   flex-direction: column;
+  margin: 0 1.5rem;
 `;
 
 export const RankingContent = styled.div`
@@ -17,11 +16,7 @@ export const RankingContent = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 10rem;
-
-  @media(min-width: 70rem){ 
-   margin-bottom: 20rem;
-  }
+  margin-top: 2rem;
 `;
 
 export const RankingLegend = styled.legend`

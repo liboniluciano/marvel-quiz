@@ -11,7 +11,7 @@ export const HomeContainer = styled.div`
 `;
 
 export const Description = styled.div`
-  margin-top: 5rem;
+  margin-top: 2rem;
 
   @media(min-width: 70rem){
   margin-bottom: 10rem;
@@ -46,7 +46,7 @@ export const DescriptionContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column; 
-  margin: 0 0.5rem;
+  margin: 0 1rem;
   margin-top: 5rem;
   margin-bottom: 5rem;
 
@@ -59,7 +59,7 @@ export const DescriptionContainer = styled.div`
 export const DescriptionRules = styled.p`
   font-size: 2rem;
   color: #fff;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   text-align: center;
 `;
 

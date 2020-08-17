@@ -13,7 +13,7 @@ export const Container = styled.div`
 `;
 
 export const ScoreText = styled.h1`
-  margin-top: 1rem;
+  margin-top: 2rem;
   font-size: 4rem;
 `;
 
