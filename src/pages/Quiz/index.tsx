@@ -56,7 +56,7 @@ const Quiz: React.FC = () => {
 
   async function getPersons() {
     setLoading(true);
-    const response = await apiMarvel.get(`${process.env.REACT_APP_MARVEL_URL}&offset=${offSet}&apikey=${process.env.REACT_APP_MARVEL_KEY}`);
+    const response = await apiMarvel.get(`&offset=${offSet}&apikey=${process.env.REACT_APP_MARVEL_KEY}`);
 
     const { results } = response.data.data;
 
