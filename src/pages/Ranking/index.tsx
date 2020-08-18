@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
+import Loading from '../../components/Loading';
 import Header from '../../components/Header';
+
+
 import apiRanking from '../../services/apiRanking';
 
 
 
-import { Container, RankingContent, RankingLegend, RankingFieldset, RankingListContainer ,RankingList, RankingListItem } from './styles';
+import { Container, RankingContent, RankingLegend, RankingFieldset, RankingListContainer, RankingList, RankingListItem } from './styles';
 
 interface RankingData {
   id: number;
@@ -15,10 +19,12 @@ interface RankingData {
 const Ranking: React.FC = () => {
   const a = 1;
   const [rankings, setRankings] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  async function getRanking(){
+  async function getRanking() {
     const { data } = await apiRanking.get('score');
     setRankings(data);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -30,18 +36,23 @@ const Ranking: React.FC = () => {
       <Header />
       <RankingContent>
         <RankingFieldset>
-          <RankingLegend>Melhores 10 pontuações</RankingLegend>
-          <RankingListContainer>
-          <RankingList start={a}>
-            {rankings.map((ranking: RankingData)=> {
-              return (
-              <RankingListItem key={ranking.id}>{ranking.name} - {ranking.score} pontos</RankingListItem>
-              )
-            })}
-          </RankingList>
-          </RankingListContainer>
+          {loading ? <Loading /> :
+            <>
+              <RankingLegend>Melhores 10 pontuações</RankingLegend>
+              <RankingListContainer>
+                <RankingList start={a}>
+                  {rankings.map((ranking: RankingData) => {
+                    return (
+                      <RankingListItem key={ranking.id}>{ranking.name} - {ranking.score} pontos</RankingListItem>
+                    )
+                  })}
+                </RankingList>
+              </RankingListContainer>
+            </>
+          }
         </RankingFieldset>
       </RankingContent>
+
     </Container>
   );
 }
