@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
+import { useHistory } from 'react-router-dom';
+
 import { useDifficulty } from '../../contexts/difficulty';
 import { useScore } from '../../contexts/score';
 
-import { useHistory } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import Timer from '../../components/Timer';
@@ -75,7 +76,7 @@ const Quiz: React.FC = () => {
   function verifyDifficulty() {
     if (difficultyGame === 'Easy') {
       points = 1;
-      timerDifficulty = 20;
+      timerDifficulty = 15;
     } else if (difficultyGame === 'Medium') {
       points = 3;
       timerDifficulty = 12;
@@ -139,7 +140,7 @@ const Quiz: React.FC = () => {
       push('/');
       return;
     }
-    if (questionNumber === 11) {
+    if (questionNumber === 3) {
       push('/score');
       return;
     }
