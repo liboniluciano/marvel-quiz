@@ -140,7 +140,7 @@ const Quiz: React.FC = () => {
       push('/');
       return;
     }
-    if (questionNumber === 3) {
+    if (questionNumber === 11) {
       push('/score');
       return;
     }
